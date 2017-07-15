@@ -1,0 +1,42 @@
+info:
+  name: MicroServiceApplication-SMS
+  description: MSA with SOAP produce/consume, Netflix
+  version: 1.0
+---
+server:
+  port: 9002
+---
+eureka:
+  hostname: localhost
+  password: secret
+  instance:
+    metadataMap:
+      cluster: MYCLUSTER
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+---
+# http://localhost:8500/v1/catalog/service/microservice-one?pretty=true
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        # For the local environment to work ... (remove for real life)
+        healthCheckUrl: "http://localhost:${server.port}/health"
+        healthCheckInterval: 30s
+        tags: cluster=MYCLUSTER,availability-zone-A
+---
+logging:
+  level:
+    org.springframework.cloud: DEBUG
+    com.ecwid.consul: TRACE
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [trace=%X{X-B3-TraceId:-},span=%X{X-B3-SpanId:-}] [%15.15t] %-40.40logger{39}: %m%n'
+---
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs 

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns4="http://ws.chinagdn.com/xsd" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns0="http://rmi.java/xsd" xmlns:ns1="http://io.java/xsd" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:ns3="http://ws.chinagdn.com" xmlns:ns2="http://service.ws.chinagdn.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://ws.chinagdn.com">
+    <wsdl:documentation>MasInterfaceForService</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax21="http://rmi.java/xsd" xmlns:ns1="http://io.java/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://rmi.java/xsd">
+            <xs:complexType name="RemoteException">
+                <xs:complexContent>
+                    <xs:extension base="ns1:IOException">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="cause" nillable="true" type="xs:anyType"/>
+                            <xs:element minOccurs="0" name="message" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="detail" nillable="true" type="xs:anyType"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax22="http://io.java/xsd" xmlns:ns3="http://ws.chinagdn.com" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://io.java/xsd">
+            <xs:complexType name="IOException">
+                <xs:complexContent>
+                    <xs:extension base="ns3:Exception">
+                        <xs:sequence/>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax24="http://service.ws.chinagdn.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.ws.chinagdn.com/xsd">
+            <xs:complexType name="IOperatorService">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="ISendTaskService">
+                <xs:sequence/>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ns="http://ws.chinagdn.com" xmlns:ns0="http://rmi.java/xsd" xmlns:ns2="http://service.ws.chinagdn.com/xsd" xmlns:ns4="http://ws.chinagdn.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ws.chinagdn.com">
+            <xs:complexType name="Exception">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Exception" nillable="true" type="xs:anyType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="RemoteException">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RemoteException" nillable="true" type="ns0:RemoteException"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="submitSms">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="submitSmsReq" nillable="true" type="ns4:SubmitSmsReq"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="submitSmsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ns4:SubmitSmsResp"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="test">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="test" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="testResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="setOperatorService">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="operatorService" nillable="true" type="ns2:IOperatorService"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="setSendTaskService">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="sendTaskService" nillable="true" type="ns2:ISendTaskService"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns:ax23="http://ws.chinagdn.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ws.chinagdn.com/xsd">
+            <xs:complexType name="SubmitSmsReq">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="body" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="header" nillable="true" type="ax23:Header"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Header">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="msgType" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="serviceID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="timeStamp" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="transationID" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="version" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SubmitSmsResp">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="body" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="header" nillable="true" type="ax23:Header"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="setSendTaskServiceRequest">
+        <wsdl:part name="parameters" element="ns3:setSendTaskService"/>
+    </wsdl:message>
+    <wsdl:message name="setOperatorServiceRequest">
+        <wsdl:part name="parameters" element="ns3:setOperatorService"/>
+    </wsdl:message>
+    <wsdl:message name="testRequest">
+        <wsdl:part name="parameters" element="ns3:test"/>
+    </wsdl:message>
+    <wsdl:message name="testResponse">
+        <wsdl:part name="parameters" element="ns3:testResponse"/>
+    </wsdl:message>
+    <wsdl:message name="submitSmsRequest">
+        <wsdl:part name="parameters" element="ns3:submitSms"/>
+    </wsdl:message>
+    <wsdl:message name="submitSmsResponse">
+        <wsdl:part name="parameters" element="ns3:submitSmsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="RemoteException">
+        <wsdl:part name="parameters" element="ns3:RemoteException"/>
+    </wsdl:message>
+    <wsdl:portType name="MasInterfaceForServicePortType">
+        <wsdl:operation name="setSendTaskService">
+            <wsdl:input message="ns3:setSendTaskServiceRequest" wsaw:Action="urn:setSendTaskService"/>
+        </wsdl:operation>
+        <wsdl:operation name="setOperatorService">
+            <wsdl:input message="ns3:setOperatorServiceRequest" wsaw:Action="urn:setOperatorService"/>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <wsdl:input message="ns3:testRequest" wsaw:Action="urn:test"/>
+            <wsdl:output message="ns3:testResponse" wsaw:Action="urn:testResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="submitSms">
+            <wsdl:input message="ns3:submitSmsRequest" wsaw:Action="urn:submitSms"/>
+            <wsdl:output message="ns3:submitSmsResponse" wsaw:Action="urn:submitSmsResponse"/>
+            <wsdl:fault message="ns3:RemoteException" name="RemoteException" wsaw:Action="urn:submitSmsRemoteException"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MasInterfaceForServiceSOAP11Binding" type="ns3:MasInterfaceForServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="setSendTaskService">
+            <soap:operation soapAction="urn:setSendTaskService" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="setOperatorService">
+            <soap:operation soapAction="urn:setOperatorService" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <soap:operation soapAction="urn:test" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="submitSms">
+            <soap:operation soapAction="urn:submitSms" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="RemoteException">
+                <soap:fault use="literal" name="RemoteException"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="MasInterfaceForServiceSOAP12Binding" type="ns3:MasInterfaceForServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="setSendTaskService">
+            <soap12:operation soapAction="urn:setSendTaskService" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="setOperatorService">
+            <soap12:operation soapAction="urn:setOperatorService" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <soap12:operation soapAction="urn:test" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="submitSms">
+            <soap12:operation soapAction="urn:submitSms" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="RemoteException">
+                <soap12:fault use="literal" name="RemoteException"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="MasInterfaceForServiceHttpBinding" type="ns3:MasInterfaceForServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="setSendTaskService">
+            <http:operation location="MasInterfaceForService/setSendTaskService"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="setSendTaskService"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="setOperatorService">
+            <http:operation location="MasInterfaceForService/setOperatorService"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="setOperatorService"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="test">
+            <http:operation location="MasInterfaceForService/test"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="test"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="test"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="submitSms">
+            <http:operation location="MasInterfaceForService/submitSms"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="submitSms"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="submitSms"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="MasInterfaceForService">
+        <wsdl:port name="MasInterfaceForServiceSOAP11port_http" binding="ns3:MasInterfaceForServiceSOAP11Binding">
+            <soap:address location="http://192.168.100.157:7001/ws/services/MasInterfaceForService"/>
+        </wsdl:port>
+        <wsdl:port name="MasInterfaceForServiceSOAP12port_http" binding="ns3:MasInterfaceForServiceSOAP12Binding">
+            <soap12:address location="http://192.168.100.157:7001/ws/services/MasInterfaceForService"/>
+        </wsdl:port>
+        <wsdl:port name="MasInterfaceForServiceHttpport" binding="ns3:MasInterfaceForServiceHttpBinding">
+            <http:address location="http://192.168.100.157:7001/ws/services/MasInterfaceForService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

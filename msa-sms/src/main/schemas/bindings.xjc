@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings wsdlLocation="MasInterfaceForService.wsdl.xml"
+            xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+            xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" version="2.1"
+            xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+            xmlns:annox="http://annox.dev.java.net"
+            xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <jaxws:bindings node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='http://rmi.java/xsd']">
+        <jaxb:schemaBindings>
+            <jaxb:nameXmlTransform>
+                <jaxb:elementName suffix="Elem"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxws:bindings>
+    
+</jaxws:bindings>

@@ -1,0 +1,359 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-parent</artifactId>
+        <!--<version>Brixton.RC1</version>-->
+        <version>Camden.SR7</version>
+        <relativePath/>
+    </parent>
+    <groupId>github-dot-com-slash-stackdocker.spring-cloud-netflix-sample</groupId>
+    <artifactId>msa-sms</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <start-class>stackdocker.App</start-class>
+        <springfox.version>2.7.0</springfox.version>
+        <lombok.version>1.16.18</lombok.version>
+    </properties>
+
+    <dependencies>
+	    <!-- tag::springboot ReST[] -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+	    <!-- end::springboot ReST[] -->
+		
+		<!-- tag::springws[] -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+       <!-- end::springws[] -->
+
+		<!-- tag::springws client[] -->
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+        </dependency>
+		<!-- tag::springws client[] -->
+	
+       <!-- tag::springcloud[] -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- Feign rest clients and Hystrix Circuit breaker -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+        <!-- spring cloud sleuth for log correlation -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+       <!-- end::springcloud[] -->
+
+		<!-- https://mvnrepository.com/artifact/org.apache.axis2/axis2-kernel -->
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-kernel</artifactId>
+		    <version>1.7.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.axis2/axis2-adb -->
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-adb</artifactId>
+		    <version>1.7.5</version>
+		</dependency>
+        <!--<dependency>
+            <groupId>com.chinagdn</groupId>
+            <artifactId>util-secr</artifactId>
+            <version>1.0</version>
+            <systemPath>${project.basedir}/lib/aspire-secr-adc.jar</systemPath>
+            <scope>system</scope>
+        </dependency>-->
+		<dependency>
+		    <groupId>com.sun.xml.ws</groupId>
+		    <artifactId>jaxws-tools</artifactId>
+		    <version>2.2.10</version>
+		</dependency>
+       <dependency>
+           <groupId>com.sun.xml.ws</groupId>
+           <artifactId>jaxws-rt</artifactId>
+           <version>2.2.10</version>
+        </dependency>
+
+        <!-- API documentation using swagger.io -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <!-- Lombok dependency -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>discoveryServiceEureka</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-eureka</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>discoveryServiceConsul</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+					 <version>3.6.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+						  <excludes>
+                            <exclude>${project.basedir}/src/main/java/com/chinadgn/ws/xsd/*.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- Create a spring-boot-ready jar with all dependencies included -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+			<!-- tag::xsd[] -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>2.3.1</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+				    <target>2.1</target>
+					<!--<schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
+					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>-->
+                  <sources>
+                    <source>src/main/resources/messages.xsd</source>
+					</sources>
+				    <packageName>com.chinagdn.ws.xsd</packageName>
+					<clearOutputDir>false</clearOutputDir>
+				</configuration>
+			</plugin>
+			<!-- end::xsd[] -->
+
+           <!-- https://stackoverflow.com/questions/23011547/webservice-client-generation-error-with-jdk8 -->
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>properties-maven-plugin</artifactId>
+			    <version>1.0.0</version>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>set-system-properties</goal>
+			            </goals>
+			            <configuration>
+			                <properties>
+			                    <property>
+			                        <name>javax.xml.accessExternalSchema</name>
+			                        <value>all</value>
+			                    </property>
+			                    <property>
+			                        <name>javax.xml.accessExternalDTD</name>
+			                        <value>all</value>
+			                    </property>
+			                </properties>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+
+	        <!-- tag::wsdl[] -->
+		    <!--<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>jaxws-maven-plugin</artifactId>
+		        <version>2.4.1</version>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>wsimport</goal>
+		            </goals>
+		            <configuration>
+		              &lt;!&ndash;<wsdlLocation>http://101.201.41.112:9000/ctc-ema70/webServices/MasInterfaceForService?wsdl</wsdlLocation>&ndash;&gt;
+		              <wsdlDirectory>${project.basedir}/src/main/schemas</wsdlDirectory>
+		              <wsdlFiles>
+		                <wsdlFile>${basedir}/src/main/schemas/MasInterfaceForService.wsdl.xml</wsdlFile>
+		              </wsdlFiles>
+                     <bindingFiles>
+                       <bindingFile>${basedir}/src/main/schemas/bindings.xjc</bindingFile>
+                     </bindingFiles> 
+					   <vmArgs>
+                       <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                     </vmArgs>           
+					 </configuration>
+		          </execution>
+		        </executions>
+		    </plugin>-->
+	
+	        <plugin>
+	            <groupId>org.jvnet.jaxb2.maven2</groupId>
+	            <artifactId>maven-jaxb2-plugin</artifactId>
+	            <version>0.13.2</version>
+	            <executions>
+	                <execution>
+	                    <goals>
+	                        <goal>generate</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	            <configuration>
+				     <specVersion>2.1</specVersion>
+	                <schemaLanguage>WSDL</schemaLanguage>
+					
+					<schemaDirectory>${project.basedir}/src/main/schemas</schemaDirectory>
+					<schemaIncludes>
+						<include>MasInterfaceForService.wsdl.xml</include>
+					</schemaIncludes>
+					<schemaExcludes>
+						<exclude>*.xs</exclude>
+						<exclude>*.xsd</exclude>
+					</schemaExcludes>
+					<bindingDirectory>${project.basedir}/src/main/schemas</bindingDirectory>
+					<bindingIncludes>
+						<include>bindings.xjb</include>
+					</bindingIncludes>			
+					<bindingExcludes>
+						<exclude>bindings.xjc</exclude>
+					</bindingExcludes>
+					
+					<forceRegenerate>true</forceRegenerate>
+					<generateDirectory>target/generated-sources/xjc</generateDirectory>
+                   <generatePackage>hello.wsdl</generatePackage>
+					
+					 <!-- fix "A class/interface with the same name "<className>" is already in use. Use a class customization to resolve this conflict." -->
+			         <args>
+			             <arg>-XautoNameResolution</arg>
+			         </args>
+
+	                <!--<schemas>
+	                    <schema>
+	                        <url>http://101.201.41.112:9000/ctc-ema70/webServices/MasInterfaceForService?wsdl</url>
+	                    </schema>
+	                </schemas>-->
+	            </configuration>
+	        </plugin>
+	        <!-- end::wsdl[] -->
+
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>build-helper-maven-plugin</artifactId>
+			    <version>3.0.0</version>
+			    <executions>
+			        <execution>
+			            <id>add-source</id>
+			            <phase>generate-sources</phase>
+			            <goals>
+			                <goal>add-source</goal>
+			            </goals>
+			            <configuration>
+			                <sources>
+			                    <source>${basedir}/target/generated-sources/xjc</source>
+			                </sources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+
+        </plugins>
+    </build>
+
+	<distributionManagement>	
+	    <repository>
+	        <id>my-releases</id>
+	        <name>My internal repository</name>
+	        <url>http://${local-nexus-host}/content/repositories/releases</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>my-snapshots</id>
+	        <name>My internal repository</name>
+	        <url>http://${local-nexus-host}/content/repositories/snapshots</url>
+	    </snapshotRepository>
+	</distributionManagement>
+
+</project>

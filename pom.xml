@@ -1,22 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.sample</groupId>
-	<artifactId>sample-spring-cloud-netflix</artifactId>
+	<groupId>github-dot-com-slash-stackdocker</groupId>
+	<artifactId>spring-cloud-netflix-sample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>sample-spring-cloud-netflix</name>
+	<name>spring-cloud-netflix-sample</name>
 	<modules>
-		<module>microservice-one</module>
-		<module>microservice-two</module>
+		<!--<module>microservice-one</module>
+		<module>microservice-two</module>-->
+		<module>msa-sms</module>
 		<module>netflix-zuul-server</module>
 		<module>netflix-hystrix-dashboard</module>
 		<module>netflix-hystrix-turbine</module>
 	</modules>
+
 	<properties>
 		<!-- Choose discovery service (eureka|consul) -->
 		<discoveryService>eureka</discoveryService>
+		<local-nexus-host>172.17.4.50:8081</local-nexus-host>
 	</properties>
+
 	<profiles>
 		<profile>
 			<id>discoveryServiceEureka</id>
@@ -31,4 +35,135 @@
 			<id>discoveryServiceConsul</id>
 		</profile>
 	</profiles>
+
+	<repositories>
+		<repository>
+		    <id>nexus-aliyun</id>
+		    <name>aliyun</name>
+		    <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		    <snapshots>
+		        <enabled>false</enabled>
+		    </snapshots>
+		    <releases>
+		        <enabled>true</enabled>
+		    </releases>
+		</repository>
+
+       <repository>
+	        <id>nexus-alfresco</id>
+		    <name>alfresco</name>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+	    </repository>
+		
+	    <repository>
+	      <id>jcenter-releases</id>
+	      <name>jcenter</name>
+	      <url>https://jcenter.bintray.com/</url>
+	    </repository>
+		
+	    <repository>
+		    <id>spring-libs-release</id>
+			<name>spring-libs-release</name>
+			<url>https://repo.spring.io/libs-release/</url>
+	    </repository>
+		
+	    <repository>
+		    <id>spring-libs-milestone</id>
+			<name>spring-libs-milestone</name>
+			<url>https://repo.spring.io/libs-milestone/</url>
+	    </repository>
+
+	    <repository>
+		    <id>confluent</id>
+			<name>confluent</name>
+			<url>http://packages.confluent.io/maven/</url>
+	    </repository>
+
+        <repository>
+            <id>clojars</id>
+            <name>clojars</name>
+            <url>http://clojars.org/repo/</url>
+        </repository>
+		
+        <repository>
+            <id>my-proxy</id>
+            <url>http://${local-nexus-host}/content/groups/public</url>
+		</repository>
+
+        <repository>
+            <id>my-synced</id>
+            <url>http://${local-nexus-host}/content/repositories/allsynced</url>
+            <releases>
+			    <enabled>true</enabled>
+		    </releases>
+            <snapshots>
+			    <enabled>true</enabled>
+			</snapshots>
+        </repository>
+
+	</repositories>
+
+
+    <pluginRepositories>
+        <pluginRepository>
+		    <id>spring-plugins-milestone</id>
+			<name>spring-plugins-milestone</name>
+			<url>https://repo.spring.io/plugins-milestone</url>
+	    </pluginRepository>
+
+        <pluginRepository>
+            <id>my-proxy</id>
+            <url>http://${local-nexus-host}/content/groups/public</url>
+		</pluginRepository>
+
+        <pluginRepository>
+            <id>my-synced</id>
+            <url>http://${local-nexus-host}/content/repositories/allsynced</url>
+            <releases>
+			    <enabled>true</enabled>
+			</releases>
+            <snapshots>
+			    <enabled>true</enabled>
+			</snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+	
+	<build>
+	  <plugins>
+	    <plugin>
+	      <groupId>org.sonatype.plugins</groupId>
+	      <artifactId>nexus-staging-maven-plugin</artifactId>
+		  <version>1.6.8</version>
+	      <executions>
+	        <execution>
+	          <id>default-deploy</id>
+	          <phase>deploy</phase>
+	          <goals>
+	            <goal>deploy</goal>
+	          </goals>
+	        </execution>
+	      </executions>
+	      <configuration>
+	        <serverId>my-snapshots</serverId>
+	        <nexusUrl>http://localhost:8081/</nexusUrl>
+	        <!-- explicit matching using the staging profile id -->
+	        <stagingProfileId>staging</stagingProfileId>
+	      </configuration>
+	    </plugin>
+	  </plugins>
+	</build>
+
+	<distributionManagement>	
+	    <repository>
+	        <id>my-releases</id>
+	        <name>My private repository</name>
+	        <url>http://${local-nexus-host}/content/repositories/releases</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>my-snapshots</id>
+	        <name>My private repository</name>
+	        <url>http://${local-nexus-host}/content/repositories/snapshots</url>
+	    </snapshotRepository>
+	</distributionManagement>
+	
 </project>
