@@ -1,5 +1,32 @@
 #  Spring Cloud Netflix Sample
 
+## Table of contents
+
+Project _msa-sms_  - a Spring Cloud Web Service Demo 
+
+Service Discovery - netflix Eureka
+
+Client side Load balancing - netflix Ribbon
+
+API Gateway - netflix Zuul
+
+Circuit Breaker - netflix Hystrix & Turbine
+
+## Project _msa-sms_
+
+Swagger 
+![屏幕快照 2017-07-15 下午12.34.44.png](./屏幕快照%202017-07-15%20下午12.34.44.png)
+
+Build with `mvn` - [build.txt](./build.txt)
+
+Run into console - [run.txt](./run.txt)
+
+JAXB of WSDL - [WSDL.md](./WSDL.md)
+
+JAX-WS schema - [XSD.md](./XSD.md)
+
+## Microservice
+
 This project is intended to be a test and practical example of several spring cloud technologies, namely:
 
 - Service discovery via Eureka server or Consul Server
